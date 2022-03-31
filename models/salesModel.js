@@ -1,10 +1,13 @@
 const connection = require('./connection');
 
-const getAllSales = async () => { };
+const getAll = async () => {
+  const [sales] = await connection.execute('SELECT * FROM sales');
+  return sales;
+};
 
-const getSaleById = async () => { };
+const getById = async () => { };
 
 module.exports = {
-  getAllSales,
-  getSaleById,
+  getAll,
+  getById,
 };
