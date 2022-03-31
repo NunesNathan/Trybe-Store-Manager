@@ -1,9 +1,10 @@
 require('dotenv').config();
+const express = require('express');
+const route = require('./routers/store');
 
-// não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (_request, response) => {
-  response.send();
-});
+const app = express();
+app.use(express.json());
+app.use(route);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
