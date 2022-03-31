@@ -1,14 +1,17 @@
 const express = require('express');
 
-const ProductsModel = require('../models/productsModel');
-const SalesModel = require('../models/salesModel');
+const productsController = require('../controllers/productsController');
+const salesController = require('../controllers/salesController');
+
+const defaultRoute = (_request, response) => response.send();
 
 const router = express.Router();
 
 router
-  .get('/products', ProductsModel.getAll)
-  .get('/products/:id', ProductsModel.getById)
-  .get('/sales', SalesModel.getAll)
-  .get('/sales/:id', SalesModel.getById);
+  .get('/', defaultRoute)
+  .get('/products', productsController.getAll)
+  .get('/products/:id', productsController.getById)
+  .get('/sales', salesController.getAll)
+  .get('/sales/:id', salesController.getById);
 
 module.exports = router;
