@@ -24,9 +24,13 @@ const insertProduct = async (req, res) => {
 module.exports = {
   getAll,
   getById,
+  /* resolvendo não passar no GH mas passar
+  localmente baseado na thread:
+  https://trybecourse.slack.com/archives/C02A8CKT31U/p1648767926414729?thread_ts=1648762735.121929&cid=C02A8CKT31U
+  */
   postProduct: [
-    productsMiddleware.verifyConflictName,
     productsMiddleware.validadeProduct,
+    productsMiddleware.verifyConflictName,
     insertProduct,
   ],
 };

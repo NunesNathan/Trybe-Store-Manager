@@ -13,7 +13,8 @@ router
   .get('/products/:id', productsController.getById)
   .get('/sales', salesController.getAll)
   .get('/sales/:id', salesController.getById)
-  .post('/products', productsController.postProduct);
+  .post('/products', productsController.postProduct)
+  .put('/products', productsController.putProduct);
   // .post('/sales', salesController.postSale);
 
 module.exports = router;
