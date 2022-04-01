@@ -29,6 +29,12 @@ const updateProduct = async (req, res) => {
   return res.status(200).json(product);
 };
 
+const deleteProductById = async (req, res) => {
+  await ProductsModel.deleteProduct(req.params);
+
+  res.status(204).end();
+};
+
 module.exports = {
   getAll,
   getById,
@@ -40,5 +46,9 @@ module.exports = {
     productsMiddleware.verifyProductInputs,
     productsMiddleware.existsIdToModify,
     updateProduct,
+  ],
+  deleteProduct: [
+    productsMiddleware.existsIdToModify,
+    deleteProductById,
   ],
 };
