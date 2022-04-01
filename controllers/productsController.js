@@ -1,5 +1,5 @@
-const { validadeProduct } = require('../middlewares/productsMiddleware');
 const ProductsModel = require('../models/productsModel');
+const productsMiddleware = require('../middlewares/productsMiddleware');
 
 const getAll = async (_req, res) => {
   const products = await ProductsModel.getAll();
@@ -18,14 +18,15 @@ const getById = async (req, res) => {
 const insertProduct = async (req, res) => {
   const result = await ProductsModel.postProduct(req.body);
 
-  return res.status(202).json(result);
+  return res.status(201).json(result);
 };
 
 module.exports = {
   getAll,
   getById,
   postProduct: [
-    validadeProduct,
+    productsMiddleware.verifyConflictName,
+    productsMiddleware.validadeProduct,
     insertProduct,
   ],
 };
