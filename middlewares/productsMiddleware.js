@@ -1,4 +1,6 @@
 const Joi = require('joi');
+
+const productsModel = require('../models/productsModel');
 const productsServices = require('../services/productsServices');
 
 const productsFormatSchema = Joi.object({
@@ -31,7 +33,21 @@ const verifyConflictName = async (req, res, next) => {
   next();
 };
 
+const existsIdToModify = async (req, res, next) => {
+  const [exists] = await productsModel.getById(req.params);
+
+  if (!exists) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+
+  next();
+};
+
 module.exports = {
-  validadeProduct,
+  verifyProductInputs: [
+    validadeProduct,
+    verifyConflictName,
+  ],
   verifyConflictName,
+  existsIdToModify,
 };
