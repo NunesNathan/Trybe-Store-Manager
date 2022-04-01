@@ -1,4 +1,5 @@
 const ProductsModel = require('../models/productsModel');
+const productsServices = require('../services/productsServices');
 const productsMiddleware = require('../middlewares/productsMiddleware');
 
 const getAll = async (_req, res) => {
@@ -21,16 +22,23 @@ const insertProduct = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const updateProduct = async (req, res) => {
+  const [{ id }, { name, quantity }] = [req.params, req.body];
+  const product = await productsServices.updateProduct(id, name, quantity);
+
+  return res.status(200).json(product);
+};
+
 module.exports = {
   getAll,
   getById,
-  /* resolvendo não passar no GH mas passar
-  localmente baseado na thread:
-  https://trybecourse.slack.com/archives/C02A8CKT31U/p1648767926414729?thread_ts=1648762735.121929&cid=C02A8CKT31U
-  */
   postProduct: [
-    productsMiddleware.validadeProduct,
-    productsMiddleware.verifyConflictName,
+    productsMiddleware.verifyProductInputs,
     insertProduct,
+  ],
+  putProduct: [
+    productsMiddleware.verifyProductInputs,
+    productsMiddleware.existsIdToModify,
+    updateProduct,
   ],
 };
