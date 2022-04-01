@@ -1,3 +1,4 @@
+const { validadeSale } = require('../middlewares/salesMiddleware');
 const SalesModel = require('../models/salesModel');
 const salesServices = require('../services/salesService');
 
@@ -15,7 +16,17 @@ const getById = async (req, res) => {
   return res.status(200).json(sale);
 };
 
+const insertSale = async (req, res) => {
+  const result = await SalesModel.postProduct(req.body);
+
+  return res.status(202).json(result);
+};
+
 module.exports = {
   getAll,
   getById,
+  postSale: [
+    validadeSale,
+    insertSale,
+  ],
 };
