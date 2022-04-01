@@ -1,3 +1,4 @@
+const { validadeProduct } = require('../middlewares/productsMiddleware');
 const ProductsModel = require('../models/productsModel');
 
 const getAll = async (_req, res) => {
@@ -14,7 +15,17 @@ const getById = async (req, res) => {
   return res.status(200).json(product);
 };
 
+const insertProduct = async (req, res) => {
+  const result = await ProductsModel.postProduct(req.body);
+
+  return res.status(202).json(result);
+};
+
 module.exports = {
   getAll,
   getById,
+  postProduct: [
+    validadeProduct,
+    insertProduct,
+  ],
 };
