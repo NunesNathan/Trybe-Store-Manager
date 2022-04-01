@@ -14,7 +14,7 @@ router
   .get('/sales', salesController.getAll)
   .get('/sales/:id', salesController.getById)
   .post('/products', productsController.postProduct)
-  .put('/products', productsController.putProduct);
+  .put('/products/:id', productsController.putProduct);
   // .post('/sales', salesController.postSale);
 
 module.exports = router;
