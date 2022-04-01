@@ -20,10 +20,19 @@ const postProduct = async ({ name, quantity }) => {
   return ({ id: product.insertId, name, quantity });
 };
 
-const verifyConflictName = async (name) => {
+const verifyAlreadyName = async (name) => {
   const [product] = await connection
     .execute('SELECT * FROM StoreManager.products WHERE name = ?;', [name]);
 
+  return product;
+};
+
+const updateProduct = async (name, quantity, id) => {
+  const [product] = await connection
+    .execute(`UPDATE StoreManager.products
+     SET name = ?, quantity = ?
+     WHERE id = ?;`, [name, quantity, id]);
+  
   return product;
 };
 
@@ -31,5 +40,6 @@ module.exports = {
   getAll,
   getById,
   postProduct,
-  verifyConflictName,
+  verifyAlreadyName,
+  updateProduct,
 };
