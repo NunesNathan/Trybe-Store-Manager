@@ -37,9 +37,19 @@ const postSale = async (saleId, productId, quantity) => {
   return ({ productId, quantity });
 };
 
+const putSale = async (saleId, productId) => {
+  const [sale] = await connection
+    .execute(`SELECT * FROM StoreManager.sales_products
+     WHERE sale_id = ?
+     AND product_id = ?;`, [saleId, productId]);
+
+  return sale;
+};
+
 module.exports = {
   getAll,
   getById,
   createSale,
   postSale,
+  putSale,
 };
