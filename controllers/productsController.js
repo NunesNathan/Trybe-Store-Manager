@@ -1,14 +1,15 @@
-const ProductsModel = require('../models/productsModel');
+const productsModel = require('../models/productsModel');
 const productsServices = require('../services/productsServices');
 const productsMiddleware = require('../middlewares/productsMiddleware');
 
 const getAll = async (_req, res) => {
-  const products = await ProductsModel.getAll();
+  const products = await productsModel.getAll();
+
   return res.status(200).json(products);
 };
 
 const getById = async (req, res) => {
-  const [product] = await ProductsModel.getById(req.params);
+  const [product] = await productsModel.getById(req.params);
 
   if (!product) {
     return res.status(404).json({ message: 'Product not found' });
@@ -17,7 +18,7 @@ const getById = async (req, res) => {
 };
 
 const insertProduct = async (req, res) => {
-  const result = await ProductsModel.postProduct(req.body);
+  const result = await productsModel.postProduct(req.body);
 
   return res.status(201).json(result);
 };
@@ -30,7 +31,7 @@ const updateProduct = async (req, res) => {
 };
 
 const deleteProductById = async (req, res) => {
-  await ProductsModel.deleteProduct(req.params);
+  await productsModel.deleteProduct(req.params);
 
   res.status(204).end();
 };

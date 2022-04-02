@@ -1,7 +1,9 @@
 const connection = require('./connection');
 
 const getAll = async () => {
-  const [products] = await connection.execute('SELECT * FROM StoreManager.products ORDER BY id;');
+  const [products] = await connection
+    .execute('SELECT * FROM StoreManager.products ORDER BY id;');
+
   return products;
 };
 
@@ -32,7 +34,7 @@ const updateProduct = async (name, quantity, id) => {
     .execute(`UPDATE StoreManager.products
      SET name = ?, quantity = ?
      WHERE id = ?;`, [name, quantity, id]);
-  
+
   return product;
 };
 

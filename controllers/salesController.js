@@ -1,9 +1,10 @@
-const { validadeSale } = require('../middlewares/salesMiddleware');
-const SalesModel = require('../models/salesModel');
+const salesModel = require('../models/salesModel');
 const salesServices = require('../services/salesService');
+const salesMiddleware = require('../middlewares/salesMiddleware');
 
 const getAll = async (_req, res) => {
-  const sales = await SalesModel.getAll();
+  const sales = await salesModel.getAll();
+
   return res.status(200).json(sales);
 };
 
@@ -17,16 +18,16 @@ const getById = async (req, res) => {
 };
 
 const insertSale = async (req, res) => {
-  const result = await SalesModel.postProduct(req.body);
+  const result = await salesServices.postSale(req.body);
 
-  return res.status(202).json(result);
+  return res.status(201).json(result);
 };
 
 module.exports = {
   getAll,
   getById,
   postSale: [
-    validadeSale,
+    salesMiddleware.validadeSale,
     insertSale,
   ],
 };

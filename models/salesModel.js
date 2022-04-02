@@ -6,6 +6,7 @@ const getAll = async () => {
      FROM StoreManager.sales_products as SP
      JOIN StoreManager.products AS P ON SP.product_id = P.id
      JOIN StoreManager.sales AS S ON SP.sale_id = S.id ORDER BY SP.sale_id, SP.product_id;`);
+
   return sales;
 };
 
@@ -16,6 +17,7 @@ const getById = async (id) => {
      JOIN StoreManager.products AS P ON SP.product_id = P.id
      JOIN StoreManager.sales AS S ON SP.sale_id = S.id WHERE SP.sale_id = ?
      ORDER BY SP.product_id;`, [id]);
+
   return sale;
 };
 
@@ -23,7 +25,7 @@ const createSale = async () => {
   const [createdSale] = await connection
     .execute(`INSERT INTO StoreManager.sales (date)
      VALUES (NOW());`);
-  
+
   return createdSale;
 };
 

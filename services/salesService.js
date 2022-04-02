@@ -2,6 +2,7 @@ const salesModel = require('../models/salesModel');
 
 const getById = async ({ id }) => {
   const sale = await salesModel.getById(id);
+
   if (!sale[0]) {
     return false;
   }
