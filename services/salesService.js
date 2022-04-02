@@ -20,7 +20,20 @@ const postSale = async (body) => {
   return ({ id, itemsSold: result });
 };
 
+const updateSale = async ({ id }, body) => {
+  const result = await Promise.all(
+    body.map(async ({ productId, quantity }) => (
+      salesModel.updateSale(id, productId, quantity))),
+    );
+
+  return ({
+    saleId: id,
+    itemUpdated: result,
+  });
+};
+
 module.exports = {
   getById,
   postSale,
+  updateSale,
 };
