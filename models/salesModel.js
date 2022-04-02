@@ -37,11 +37,12 @@ const postSale = async (saleId, productId, quantity) => {
   return ({ productId, quantity });
 };
 
-const putSale = async (saleId, productId) => {
+const putSale = async (saleId, productId, quantity) => {
   const [sale] = await connection
-    .execute(`SELECT * FROM StoreManager.sales_products
+    .execute(`UPDATE * FROM StoreManager.sales_products
+     SET quantity = ?
      WHERE sale_id = ?
-     AND product_id = ?;`, [saleId, productId]);
+     AND product_id = ?;`, [quantity, saleId, productId]);
 
   return sale;
 };
