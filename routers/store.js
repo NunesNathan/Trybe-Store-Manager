@@ -16,6 +16,7 @@ router
   .post('/products', productsController.postProduct)
   .post('/sales', salesController.postSale)
   .put('/products/:id', productsController.putProduct)
+  .put('/sales/:id', salesController.putSale)
   .delete('/products/:id', productsController.deleteProduct);
 
 module.exports = router;

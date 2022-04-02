@@ -30,4 +30,8 @@ module.exports = {
     salesMiddleware.validadeSale,
     insertSale,
   ],
+  putSale: [
+    salesMiddleware.validadeSale,
+    // ,
+  ],
 };
