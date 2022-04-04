@@ -98,4 +98,20 @@ describe('productsModels', () => {
       expect(response).to.be.equals(mocked.productNameUnaliable);
     });
   });
+
+  describe('update product', async () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves([mocked.putProduct]);
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('has been updated', async () => {
+      const response = await productsModel.updateProduct('hyperProduct', 1, 3)
+
+      expect(response).to.be.equals(mocked.putProduct);
+    });
+  });
 });

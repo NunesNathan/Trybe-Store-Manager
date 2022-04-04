@@ -9,7 +9,7 @@ const verifyConflictName = async (name) => {
 const updateProduct = async (id, name, quantity) => {
   await productsModel.updateProduct(name, quantity, id);
 
-  return ({ id, name, quantity });
+  return ({ id: +id, name, quantity });
 };
 
 module.exports = {
