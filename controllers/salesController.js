@@ -9,7 +9,9 @@ const getAll = async (_req, res) => {
 };
 
 const getById = async (req, res) => {
-  const sale = await salesServices.getById(req.params);
+  const { id } = req.params;
+
+  const sale = await salesServices.getById(id);
 
   if (!sale) {
     return res.status(404).json({ message: 'Sale not found' });
@@ -24,7 +26,9 @@ const insertSale = async (req, res) => {
 };
 
 const updateSale = async (req, res) => {
-  const result = await salesServices.updateSale(req.params, req.body);
+  const { id } = req.params;
+
+  const result = await salesServices.updateSale(id, req.body);
 
   res.status(200).json(result);
 };

@@ -7,14 +7,14 @@ const getAll = async () => {
   return products;
 };
 
-const getById = async ({ id }) => {
+const getById = async (id) => {
   const [[product]] = await connection
     .execute('SELECT * FROM StoreManager.products WHERE id = ?;', [id]);
 
   return product;
 };
 
-const postProduct = async ({ name, quantity }) => {
+const postProduct = async (name, quantity) => {
   const [product] = await connection
     .execute(`INSERT INTO StoreManager.products (name, quantity)
      VALUES (?, ?)`, [name, quantity]);
@@ -38,7 +38,7 @@ const updateProduct = async (name, quantity, id) => {
   return product;
 };
 
-const deleteProduct = async ({ id }) => {
+const deleteProduct = async (id) => {
   await connection
     .execute(`DELETE FROM StoreManager.products
      WHERE id = ?;`, [id]);

@@ -24,7 +24,9 @@ const validadeProduct = (req, res, next) => {
 };
 
 const verifyConflictName = async (req, res, next) => {
-  const ableToInsert = await productsServices.verifyConflictName(req.body);
+  const { name } = req.body;
+
+  const ableToInsert = await productsServices.verifyConflictName(name);
 
   if (!ableToInsert) {
     return res.status(409).json({ message: 'Product already exists' });
@@ -34,7 +36,9 @@ const verifyConflictName = async (req, res, next) => {
 };
 
 const existsIdToModify = async (req, res, next) => {
-  const exists = await productsModel.getById(req.params);
+  const { id } = req.params;
+
+  const exists = await productsModel.getById(id);
 
   if (!exists) {
     return res.status(404).json({ message: 'Product not found' });

@@ -9,7 +9,9 @@ const getAll = async (_req, res) => {
 };
 
 const getById = async (req, res) => {
-  const product = await productsModel.getById(req.params);
+  const { id } = req.params;
+
+  const product = await productsModel.getById(id);
 
   if (!product) {
     return res.status(404).json({ message: 'Product not found' });
@@ -18,19 +20,25 @@ const getById = async (req, res) => {
 };
 
 const insertProduct = async (req, res) => {
-  const result = await productsModel.postProduct(req.body);
+  const { name, quantity } = req.body;
+
+  const result = await productsModel.postProduct(name, quantity);
 
   return res.status(201).json(result);
 };
 
 const updateProduct = async (req, res) => {
-  const product = await productsServices.updateProduct(req.params, req.body);
+  const [{ id }, { name, quantity }] = [req.params, req.body];
+
+  const product = await productsServices.updateProduct(id, name, quantity);
 
   return res.status(200).json(product);
 };
 
 const deleteProductById = async (req, res) => {
-  await productsModel.deleteProduct(req.params);
+  const { id } = req.params;
+
+  await productsModel.deleteProduct(id);
 
   res.status(204).end();
 };

@@ -1,6 +1,6 @@
 const salesModel = require('../models/salesModel');
 
-const getById = async ({ id }) => {
+const getById = async (id) => {
   const sale = await salesModel.getById(id);
 
   if (!sale[0]) {
@@ -20,7 +20,7 @@ const postSale = async (body) => {
   return ({ id, itemsSold: result });
 };
 
-const updateSale = async ({ id }, body) => {
+const updateSale = async (id, body) => {
   const result = await Promise.all(
     body.map(async ({ productId, quantity }) => (
       salesModel.updateSale(id, productId, quantity))),
