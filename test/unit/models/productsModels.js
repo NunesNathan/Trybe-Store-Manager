@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const { after } = require('mocha');
 const sinon = require('sinon');
 
 const connection = require('../../../models/connection');
@@ -71,6 +72,30 @@ describe('productsModels', () => {
       const response = await productsModel.postProduct();
 
       expect(response).not.to.be.equals([mocked.postProduct]);
+    });
+  });
+
+  describe('verify already product name', async () => {
+    before(() => {
+      sinon.stub(connection, 'execute')
+        .onFirstCall().resolves([mocked.productNameAvaliable])
+        .onSecondCall().resolves([mocked.productNameUnaliable])
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('product name avaliable', async () => {
+      const response = await productsModel.verifyAlreadyName('hyperProduct');
+
+      expect(response).to.be.equals(mocked.productNameAvaliable);
+    });
+    
+    it('product name unavailable', async () => {
+      const response = await productsModel.verifyAlreadyName('hyperProduct');
+
+      expect(response).to.be.equals(mocked.productNameUnaliable);
     });
   });
 });

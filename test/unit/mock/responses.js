@@ -28,6 +28,12 @@ const postProduct = {
   "quantity": 2
 };
 
+const productNameAvaliable = [];
+
+const productNameUnaliable = [
+  { id: 4, name: 'hyperProduct', quantity: 2 }
+];
+
 const putProduct = {
   "id": "3",
   "name": "hyperProduct",
@@ -86,6 +92,8 @@ module.exports = {
   getProducts,
   getProductById,
   postProduct,
+  productNameAvaliable,
+  productNameUnaliable,
   putProduct,
   deleteProduct: getProducts,
   getSales,
