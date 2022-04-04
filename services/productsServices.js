@@ -6,7 +6,8 @@ const verifyConflictName = async ({ name }) => {
   return !result;
 };
 
-const updateProduct = async (id, name, quantity) => {
+const updateProduct = async (params, body) => {
+  const [{ id }, { name, quantity }] = [params, body];
   await productsModel.updateProduct(name, quantity, id);
 
   return ({ id, name, quantity });
