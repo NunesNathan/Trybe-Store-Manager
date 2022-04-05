@@ -64,19 +64,20 @@ describe('salesModels', () => {
     });
   });
 
-  describe.skip('update product', async () => {
+  describe('update sale', async () => {
     before(() => {
-      sinon.stub(connection, 'execute').resolves([mocked.putProduct]);
+      sinon.stub(connection, 'execute').resolves([mocked.postSale]);
     });
 
     after(() => {
       connection.execute.restore();
     });
 
-    it('has been updated', async () => {
-      const response = await salesModel.updateProduct('hyperProduct', 1, 3)
+    it('post one product', async () => {
+      const response = await salesModel.updateSale(3, 3, 1);
 
-      expect(response).to.be.equals(mocked.putProduct);
+      expect(response.productId).to.be.equals(3);
+      expect(response.quantity).to.be.equals(1);
     });
   });
 });
