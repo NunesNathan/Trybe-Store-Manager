@@ -35,7 +35,7 @@ const productNameUnaliable = [
 ];
 
 const putProduct = {
-  "id": "3",
+  "id": 3,
   "name": "hyperProduct",
   "quantity": 1
 };
