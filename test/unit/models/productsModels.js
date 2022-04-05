@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const { after } = require('mocha');
 const sinon = require('sinon');
 
 const connection = require('../../../models/connection');
@@ -112,6 +111,22 @@ describe('productsModels', () => {
       const response = await productsModel.updateProduct('hyperProduct', 1, 3)
 
       expect(response).to.be.equals(mocked.putProduct);
+    });
+  });
+
+  describe('delete product', async () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves();
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('have been deleted', async () => {
+      await productsModel.deleteProduct(3);
+
+      sinon.assert.called(connection.execute);
     });
   });
 });
