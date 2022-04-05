@@ -47,6 +47,29 @@ describe('salesModels', () => {
     });
   });
 
+  describe('create sale date', async () => {
+    const result = { insertId: 3 };
+    before(() => {
+      sinon.stub(connection, 'execute').resolves([result]);
+    });
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('have been called', async () => {
+      await salesModel.createSale();
+
+      sinon.assert.called(connection.execute);
+    });
+    
+    it('have been created', async () => {
+      const response = await salesModel.createSale();
+
+      expect(response).to.be.equal(result)
+    });
+  });
+
   describe('post sale', async () => {
     before(() => {
       sinon.stub(connection, 'execute').resolves([mocked.postSale]);
